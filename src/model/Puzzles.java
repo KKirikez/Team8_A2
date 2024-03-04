@@ -19,10 +19,11 @@ public class Puzzles extends Toy {
             case "Logic":
             case "Trivia":
             case "Riddle":
-                this.puzzleType = puzzleType;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid puzzle type");
+                try {
+                    this.puzzleType = puzzleType;
+                } catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException("Invalid puzzle type");
+                }
         }
     }
 

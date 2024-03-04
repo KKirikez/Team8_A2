@@ -28,9 +28,19 @@ public class Animals extends Toy {
             case "medium":
             case "large":
                 this.size = size;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid size. Size must be small, medium, or large.");
-        }
+                try {
+                    switch (size.toLowerCase()) {
+                        case "small":
+                        case "medium":
+                        case "large":
+                            this.size = size;
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Invalid size. Size must be small, medium, or large.");
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Handle the exception here
+                    System.out.println(e.getMessage());
+                }
     }
 }
