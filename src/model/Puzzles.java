@@ -39,4 +39,8 @@ public class Puzzles extends Toy {
             ", puzzleType='" + puzzleType + '\'' +
         '}';
     }
+
+    public boolean isSerialNumberValid(String serialNumber) {
+        return serialNumber.startsWith("4") || serialNumber.startsWith("5") || serialNumber.startsWith("6");
+    }
 }

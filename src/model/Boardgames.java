@@ -36,5 +36,9 @@ public class Boardgames extends Toy {
     public void setDesigners(String designers) {
         this.designers = designers;
     }
+
+    public boolean isSerialNumberValid(String serialNumber) {
+        return serialNumber.startsWith("7") || serialNumber.startsWith("8") || serialNumber.startsWith("9");
+    }
     
 }

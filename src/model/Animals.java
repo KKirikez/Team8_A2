@@ -44,4 +44,8 @@ public class Animals extends Toy {
                 break;
         }
     }
+
+    public boolean isSerialNumberValid(String serialNumber) {
+        return serialNumber.startsWith("2") || serialNumber.startsWith("3");
+    }
 }

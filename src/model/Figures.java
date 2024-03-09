@@ -8,24 +8,15 @@ public class Figures extends Toy {
         this.classification = classification;
     }
 
-    public String validateSerialNumberFigure(String serialNumber) {
-        try {
-            if (serialNumber != null && (serialNumber.charAt(0) == '0' || serialNumber.charAt(0) == '1')) {
-                return serialNumber;
-            } else {
-                throw new IllegalArgumentException("Serial number must start with 0 or 1");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
     public void setClassification(String classification) {
         this.classification = classification;
     }
 
     public String getClassification() {
         return classification;
+    }
+
+    public boolean isSerialNumberValid(String serialNumber) {
+        return serialNumber.startsWith("0") || serialNumber.startsWith("1");
     }
 }
