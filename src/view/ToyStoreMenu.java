@@ -1,3 +1,5 @@
+package view;
+
 import java.util.Scanner;
 
 public class ToyStoreMenu {
@@ -40,4 +42,3 @@ public class ToyStoreMenu {
         scanner.close();
     }
 }
-
