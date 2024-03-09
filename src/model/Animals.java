@@ -39,8 +39,9 @@ public class Animals extends Toy {
                             throw new IllegalArgumentException("Invalid size. Size must be small, medium, or large.");
                     }
                 } catch (IllegalArgumentException e) {
-                    // Handle the exception here
                     System.out.println(e.getMessage());
                 }
+                break;
+        }
     }
 }
