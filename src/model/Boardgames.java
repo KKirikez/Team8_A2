@@ -12,6 +12,7 @@ public class Boardgames extends Toy {
         this.designers = designers;
     }
 
+
     public int getMinPlayers() {
         return minPlayers;
     }
