@@ -19,4 +19,17 @@ public class Figures extends Toy {
     public boolean isSerialNumberValid(String serialNumber) {
         return serialNumber.startsWith("0") || serialNumber.startsWith("1");
     }
+
+    @Override
+    public String toString() {
+        return "Figures{" +
+            "serialNumber='" + getSerialNumber() + '\'' +
+            ", name='" + getName() + '\'' +
+            ", brand='" + getBrand() + '\'' +
+            ", price=" + getPrice() +
+            ", availableCount=" + getAvailableCount() +
+            ", ageAppropriate=" + getAgeAppropriate() +
+            ", classification='" + classification + '\'' +
+        '}';
+    }
 }

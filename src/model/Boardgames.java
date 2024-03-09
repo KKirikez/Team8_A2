@@ -40,5 +40,19 @@ public class Boardgames extends Toy {
     public boolean isSerialNumberValid(String serialNumber) {
         return serialNumber.startsWith("7") || serialNumber.startsWith("8") || serialNumber.startsWith("9");
     }
+
+    @Override
+    public String toString() {
+        return "Boardgames{" +
+            "serialNumber='" + getSerialNumber() + '\'' +
+            ", name='" + getName() + '\'' +
+            ", brand='" + getBrand() + '\'' +
+            ", price=" + getPrice() +
+            ", availableCount=" + getAvailableCount() +
+            ", minPlayers=" + minPlayers +
+            ", maxPlayers=" + maxPlayers +
+            ", designers='" + designers + '\'' +
+        '}';
+    }
     
 }
