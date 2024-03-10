@@ -173,7 +173,7 @@ private static void addToy() {
     price = Float.parseFloat(scanner.nextLine());
     if (price < 0) {
         throw new NegativePrice(); 
-    })
+    }
 
     System.out.print("Enter Available Counts: ");
     int availableCount = scanner.nextInt();
