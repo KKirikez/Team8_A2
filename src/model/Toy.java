@@ -8,6 +8,8 @@ public abstract class Toy {
     private float price;
     private int availableCount;
     private int ageAppropriate;
+    
+    private String type;
 
     public Toy(String serialNumber, String name, String brand, float price, int availableCount, int ageAppropriate) {
         this.serialNumber = serialNumber;
@@ -64,5 +66,13 @@ public abstract class Toy {
 
     public void setAgeAppropriate(int ageAppropriate) {
         this.ageAppropriate = ageAppropriate;
+    }
+    
+    public String getType() {
+    	return type;
+    }
+    
+    public void setType(String input) {
+    	type = input;
     }
 }
