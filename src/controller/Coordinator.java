@@ -181,11 +181,14 @@ private static void addToy() {
     System.out.print("Enter Appropriate Age: ");
     int ageAppropriate = scanner.nextInt();
 
+       int minPlayers, maxPlayers;
     System.out.print("Enter Minimum Number of Players: ");
-    int minPlayers = scanner.nextInt();
-
+    minPlayers = scanner.nextInt();
     System.out.print("Enter Maximum Number of Players: ");
-    int maxPlayers = scanner.nextInt();
+    maxPlayers = scanner.nextInt();
+    if (minPlayers > maxPlayers) {
+        throw new MinimumOverMax();
+    }
     scanner.nextLine();
 
     System.out.print("Enter Designer Names (Use, to separate the names if there is more than one name): ");
