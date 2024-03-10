@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Scanner;
 import model.*;
 
+/**
+ * The Coordinator class is responsible for managing the main menu and coordinating the different functionalities of the toy store application.
+ * It loads toys from a file, displays the main menu options, and performs actions based on the user's choice.
+ * It also provides methods for saving toys to a file, searching for toys, adding a new toy, removing a toy, and suggesting gifts.
+ */
 public class Coordinator {
     private static final String FILE_PATH = "res/toys.txt";
     private static List<Toy> toys = new ArrayList<>();
@@ -110,7 +115,34 @@ public class Coordinator {
     //Serial Number ; Title ; Brand ; Price ; 9 ; 6 ; 2-6 ; Barney Lugo,Yu Zimmerman
     
     private static void searchToys() {
-    	
+        	ToyStoreMenu.drawSearchMenu();
+        	Scanner scanner = new Scanner(System.in);
+        	System.out.print("Enter your choice: ");
+        	int choice = scanner.nextInt();
+        	switch (choice) {
+        	case 1:
+        		System.out.println("Enter the serial number: ");
+        		String serial = scanner.nextLine();
+        		compareToys(serial, "Serial", "Serial");
+        		break;
+        	case 2:
+        		System.out.println("Enter the name of the toy: ");
+        		String name = scanner.nextLine();
+        		compareToys(name, "Name", "Name");
+        		break;
+        	case 3:
+        		System.out.println("Enter the type of toy: ");
+        		String type = scanner.nextLine();
+        		compareToys(type, "Type", "Type");
+        		break;
+        	case 4:
+        		mainMenu();
+        		break;
+        	default:
+        		System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
+        		searchToys();
+        	}
+        
     }
     
     private static void addToy() {
