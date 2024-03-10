@@ -112,68 +112,113 @@ public class Coordinator {
         }
     }
     
-    //Serial Number ; Title ; Brand ; Price ; 9 ; 6 ; 2-6 ; Barney Lugo,Yu Zimmerman
-    
     private static void searchToys() {
-        	ToyStoreMenu.drawSearchMenu();
-        	Scanner scanner = new Scanner(System.in);
-        	System.out.print("Enter your choice: ");
-        	int choice = scanner.nextInt();
-        	switch (choice) {
-        	case 1:
-        		System.out.println("Enter the serial number: ");
-        		String serial = scanner.nextLine();
-        		compareToys(serial, "Serial", "Serial");
-        		break;
-        	case 2:
-        		System.out.println("Enter the name of the toy: ");
-        		String name = scanner.nextLine();
-        		compareToys(name, "Name", "Name");
-        		break;
-        	case 3:
-        		System.out.println("Enter the type of toy: ");
-        		String type = scanner.nextLine();
-        		compareToys(type, "Type", "Type");
-        		break;
-        	case 4:
-        		mainMenu();
-        		break;
-        	default:
-        		System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
-        		searchToys();
-        	}
-        
+        ToyStoreMenu.drawSearchMenu();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice) {
+            case 1:
+                System.out.println("Enter the serial number: ");
+                String serial = scanner.nextLine();
+                compareToys(serial, "Serial", "Serial");
+                purchaseToy(serial, "Serial", scanner);
+                break;
+            case 2:
+                System.out.println("Enter the name of the toy: ");
+                String name = scanner.nextLine();
+                compareToys(name.toLowerCase(), "Name", "Name");
+                purchaseToy(name.toLowerCase(), "Name", scanner);
+                break;
+            case 3:
+                System.out.println("Enter the type of toy: ");
+                String type = scanner.nextLine();
+                compareToys(type, "Type", "Type");
+                purchaseToy(type, "Type", scanner); 
+                break;
+            case 4:
+                mainMenu();
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
+                searchToys();
+            }
+        scanner.close();
     }
-    
-    private static void addToy() {
-    	
+
+    private static void purchaseToy(String target, String parameterType, Scanner scanner) {
+        Toy toyToPurchase = null;
+        for (Toy toy : toys) {
+            if (compare(toy, target, parameterType)) {
+                toyToPurchase = toy;
+                break;
+            }
+        }
+
+        if (toyToPurchase != null) {
+            System.out.println("The Transaction Successfully Terminated!");
+            System.out.println(toyToPurchase.toString());
+            toys.remove(toyToPurchase);
+            toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);
+        } else {
+            System.out.println("Toy not found. Please enter a valid input.");
+            searchToys(); // Reprompting the user, is this necessary?
+        }
+        System.out.println("Press Enter to continue...");
+        scanner.nextLine();
+        searchToys();
     }
-    
-    private static void removeToy() {
-    	
+
+    private static boolean compare(Toy toy, String target, String parameterType) {
+        switch (parameterType) {
+            case "Serial":
+                return toy.getSerialNumber().equals(target);
+            case "Name":
+                return toy.getName().equalsIgnoreCase(target);
+            case "Type":
+                return toy.getType().equalsIgnoreCase(target);
+            default:
+                return false;
+        }
     }
     
     private static void giftSuggestion() {
     	
     }
     
-    private static Boolean compareToys(Object target, String perameterTarget, String perameterType) {
-    	switch (perameterType) {
-    	case "Serial":
-    		System.out.println(); //debug
-    		break;
-    	case "Name":
-    		System.out.println(); //debug
-    		break;
-    	case "Type":
-    		
-    		break;
-    	default:
-    		
-    		break;
-    	}
-    	return true;
+    private static Boolean compareToys(Object target, String parameterTarget, String parameterType) {
+        switch (parameterType) {
+            case "Serial":
+                System.out.println("Here are the search results:");
+                for (Toy toy : toys) {
+                    if (toy.getSerialNumber().equals(target)) {
+                        System.out.println(toy.toString());
+                    }
+                }
+                break;
+            case "Name":
+                System.out.println("Here are the search results:");
+                for (Toy toy : toys) {
+                    if (toy.getName().equalsIgnoreCase((String) target)) {
+                        System.out.println(toy.toString());
+                    }
+                }
+                break;
+            case "Type":
+                System.out.println("Here are the search results:");
+                for (Toy toy : toys) {
+                    if (toy.getType().equalsIgnoreCase((String) target)) {
+                        System.out.println(toy.toString());
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
     }
+    
     
     private static String getType(String input) {
     	char firstChar = input.charAt(0);
