@@ -147,6 +147,58 @@ public class Coordinator {
         scanner.close();
     }
 
+private static void addToy() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Adding a new Toy!");
+
+    System.out.print("Enter Serial Number: ");
+    String serialNumber = scanner.nextLine();
+
+    
+    while (!isSerialNumberUnique(serialNumber)) {
+        System.out.println("Serial number already exists. Please enter a unique serial number.");
+        System.out.print("Enter Serial Number: ");
+        serialNumber = scanner.nextLine();
+    }
+
+    System.out.print("Enter Toy Name: ");
+    String name = scanner.nextLine();
+
+    System.out.print("Enter Toy Brand: ");
+    String brand = scanner.nextLine();
+
+    System.out.print("Enter Toy Price: ");
+    float price = scanner.nextFloat();
+
+    System.out.print("Enter Available Counts: ");
+    int availableCount = scanner.nextInt();
+
+    System.out.print("Enter Appropriate Age: ");
+    int ageAppropriate = scanner.nextInt();
+
+    System.out.print("Enter Minimum Number of Players: ");
+    int minPlayers = scanner.nextInt();
+
+    System.out.print("Enter Maximum Number of Players: ");
+    int maxPlayers = scanner.nextInt();
+    scanner.nextLine();
+
+    System.out.print("Enter Designer Names (Use, to separate the names if there is more than one name): ");
+    String designers = scanner.nextLine();
+
+    toys.add(new BoardGame(serialNumber, name, brand, price, availableCount, ageAppropriate, minPlayers, maxPlayers, designers));
+
+    System.out.println("New Toy Added!");
+    System.out.println("Press Enter to Continue...");
+    scanner.nextLine(); 
+
+    
+    drawSearchMenu();
+}
+
+
+
     private static void purchaseToy(String target, String parameterType, Scanner scanner) {
         Toy toyToPurchase = null;
         for (Toy toy : toys) {
