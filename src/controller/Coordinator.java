@@ -168,8 +168,12 @@ private static void addToy() {
     System.out.print("Enter Toy Brand: ");
     String brand = scanner.nextLine();
 
+    float price;
     System.out.print("Enter Toy Price: ");
-    float price = scanner.nextFloat();
+    price = Float.parseFloat(scanner.nextLine());
+    if (price < 0) {
+        throw new NegativePrice(); 
+    })
 
     System.out.print("Enter Available Counts: ");
     int availableCount = scanner.nextInt();
