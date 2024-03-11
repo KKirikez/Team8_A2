@@ -30,7 +30,6 @@ public class CoordinatorTest {
         // Verify the output
         String expectedOutput = "Enter your choice: ";
         assertTrue(outputStream.toString().contains(expectedOutput));
-        // Add more assertions if needed
     }
 
     @Test
@@ -48,7 +47,6 @@ public class CoordinatorTest {
         // Verify the output
         String expectedOutput = "Enter your choice: ";
         assertTrue(outputStream.toString().contains(expectedOutput));
-        // Add more assertions if needed
     }
 
     @Test
@@ -68,9 +66,8 @@ public class CoordinatorTest {
         Scanner scanner = new Scanner(file);
         String firstLine = scanner.nextLine();
         scanner.close();
-        assertEquals("", firstLine); // The file should be empty after saving
+        assertEquals("", firstLine);
 
-        // Clean up
         file.delete();
     }
 }
