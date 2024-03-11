@@ -10,68 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import model.*;
-
 /**
- * The Coordinator class is responsible for managing the main menu and coordinating the different functionalities of the toy store application.
- * It loads toys from a file, displays the main menu options, and performs actions based on the user's choice.
- * It also provides methods for saving toys to a file, searching for toys, adding a new toy, removing a toy, and suggesting gifts.
+ * The `Coordinator` class is responsible for coordinating the different functionalities of the toy store application.
+ * It handles the main menu, loading toys from a file, saving toys to a file, searching for toys, adding new toys to the inventory,
+ * and purchasing toys.
  */
-/**
- * The Coordinator class handles the main functionality of the toy store application.
- * It displays the main menu, loads toys from a file, saves toys to a file, allows searching for toys,
- * adding new toys to the inventory, removing toys, and suggesting gifts.
- */
-public class Coordinator {
-    private static final String FILE_PATH = "res/toys.txt";
-    private static List<Toy> toys = new ArrayList<>();
-
-    /**
-     * Displays the main menu and handles user input to navigate different functionalities of the toy store application.
-     */
-    public static void mainMenu() {
-        // Code implementation
-    }
-
-    /**
-     * Loads toys from a file into the application's memory.
-     */
-    private static void loadToysFromFile() {
-        // Code implementation
-    }
-
-    /**
-     * Saves the current list of toys to a file.
-     */
-    private static void saveToysToFile() {
-        // Code implementation
-    }
-
-    /**
-     * Allows the user to search for toys based on various criteria.
-     */
-    private static void searchToys() {
-        // Code implementation
-    }
-
-    /**
-     * Allows the purchase of a toy.
-     * 
-     * @param toyToPurchase The toy to be purchased.
-     * @param scanner       The scanner object for user input.
-     */
-    private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
-        // Code implementation
-    }
-
-    /**
-     * Allows the user to add a new toy to the inventory.
-     */
-    private static void addToy() {
-        // Code implementation
-    }
-}
 public class Coordinator {
     private static final String FILE_PATH = "res/toys.txt";
     private static List<Toy> toys = new ArrayList<>();
@@ -202,11 +146,12 @@ public class Coordinator {
                 break;
             case 4:
                 mainMenu();
-                return;
-            default:
-                System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
-                searchToys();
-                return; 
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
+                    searchToys();
+                    scanner.close();
+                    return; 
         }
     
         if (!matchingToys.isEmpty()) {
@@ -271,15 +216,18 @@ private static void addToy() {
     System.out.print("Enter Serial Number: ");
     String serialNumber = scanner.nextLine();
 
-   
+
     if (serialNumber.length() != 10) {
         System.out.println("Invalid serial number. It must be 10 digits long.");
+        scanner.close();
         return;
     }
     if (!isAllDigits(serialNumber)) {
         System.out.println("Invalid serial number. It must contain only numbers.");
+        scanner.close();
         return;
     }
+    scanner.close();
 
     
     for (Toy toy : toys) {
@@ -375,12 +323,11 @@ private static void addToy() {
      * @return true if the string contains only digits, false otherwise.
      */
 private static boolean isAllDigits(String str) {
-	Scanner scanner = new Scanner(System.in);
-	for (char c : str.toCharArray()) {
+    for (char c : str.toCharArray()) {
         if (!Character.isDigit(c)) {
             return false;
         }
-	}
+    }
     return true;
 }
 
@@ -468,13 +415,15 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
      * Suggests toys as a gift based on user input criteria.
      */
     private static void giftSuggestion() {
-    	Scanner scanner = new Scanner(System.in);
-    	int age = -1;
-    	String type = "";
-    	float maxPrice = 0;
-    	String reply;
-    	System.out.println("Our advanced systems will now determine what type of toy you should buy!");
-    	System.out.println("If you are unsure of any answer, leave the answer blank.");
+    Scanner scanner = new Scanner(System.in);
+    int age = -1;
+    String type = "";
+    float maxPrice = 0;
+    String reply;
+    System.out.println("Our advanced systems will now determine what type of toy you should buy!");
+    System.out.println("If you are unsure of any answer, leave the answer blank.");
+
+    scanner.close();
     	try {
     		System.out.println("What is the gift recipients age: ");
     		reply = scanner.nextLine();
@@ -547,7 +496,7 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
                 }
                 break;
             case "Name":
-                // This part id for partial, case-insensitive matching
+                // This part is for partial, case-insensitive matching
                 for (Toy toy : toys) {
                     if (toy.getName().toLowerCase().contains(targetString)) {
                         matchingToys.add(toy);
