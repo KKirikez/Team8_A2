@@ -72,7 +72,7 @@ public abstract class Toy {
     	return type;
     }
     
-    public void setType(String input) {
-    	type = input;
+    public void setType(String type) {
+    	this.type = type;
     }
 }

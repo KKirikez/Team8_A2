@@ -24,6 +24,7 @@ public class Animals extends Toy {
         super(serialNumber, name, brand, price, availableCount, ageAppropriate);
         this.material = material;
         this.size = size;
+        this.setType("Animal");
     }
 
     /**

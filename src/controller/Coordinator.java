@@ -28,16 +28,16 @@ public class Coordinator {
 
         switch (choice) {
             case 1:
-                System.out.println("One"); //debug
+               searchToys();
                 break;
             case 2:
-                System.out.println("Two");//debug
+                addToy();
                 break;
             case 3:
-                System.out.println("Three");//debug
+                removeToy();
                 break;
             case 4:
-                System.out.println("Four");//debug
+                //recommendToy();
                 break;
             case 5:
                 System.out.println("Thank you for using our app!"); //or something else just as corny
@@ -59,7 +59,6 @@ public class Coordinator {
                 String type = getType(toyString);
                 String[] toyArray = toyString.split(";");
                 Toy toy = null;
-                // ↓ AI GENERATED CODE, DOUBLE CHECK ↓
                 switch (type) {
                     case "Figure":
                         //0113513686;Toy soldier;Gamen;14.06;2;5;A
@@ -89,7 +88,6 @@ public class Coordinator {
                                 Integer.parseInt(toyArray[6].substring(0, 1)), Integer.parseInt(toyArray[6].substring(2, 3)), toyArray[7]);
                         break;
                 }
-                // ↑ AI GENERATED CODE, DOUBLE CHECK ↑
 
                 toys.add(toy);
             }

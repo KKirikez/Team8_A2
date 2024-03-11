@@ -6,6 +6,7 @@ public class Puzzles extends Toy {
     public Puzzles(String serialNumber, String name, String brand, float price, int availableCount, String puzzleType) {
         super(serialNumber, name, brand, price, availableCount, availableCount);
         setPuzzleType(puzzleType);
+        this.setType("Puzzle");
     }
 
     public String getPuzzleType() {

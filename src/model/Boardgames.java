@@ -10,6 +10,7 @@ public class Boardgames extends Toy {
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.designers = designers;
+        this.setType("Board Game");
     }
 
 
