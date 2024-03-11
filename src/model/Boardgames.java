@@ -45,16 +45,16 @@ public class Boardgames extends Toy {
 
     @Override
     public String toString() {
-        return "Boardgames{" +
-            "serialNumber='" + getSerialNumber() + '\'' +
-            ", name='" + getName() + '\'' +
-            ", brand='" + getBrand() + '\'' +
-            ", price=" + getPrice() +
-            ", availableCount=" + getAvailableCount() +
-            ", minPlayers=" + minPlayers +
-            ", maxPlayers=" + maxPlayers +
-            ", designers='" + designers + '\'' +
-        '}';
+        return "Category: " + getType() +
+                ", Serial Number: " + getSerialNumber() +
+                ", Name: " + getName() +
+                ", Brand: " + getBrand() +
+                ", Price: " + getPrice() +
+                ", Available Units: " + getAvailableCount() + 
+                ", Minimum Age: " + getAgeAppropriate() +
+            ", Minimum Players: " + minPlayers +
+            ", Max Players: " + maxPlayers +
+            ", Designers: " + designers;
     }
     
     public String toDatabase() {
