@@ -226,10 +226,7 @@ private static void addToy() {
         System.out.println("Invalid serial number. It must contain only numbers.");
         scanner.close();
         return;
-    }
-    scanner.close();
-
-    
+    }   
     for (Toy toy : toys) {
         if (toy.getSerialNumber().equals(serialNumber)) {
             System.out.println("Serial number already exists. Please enter a unique serial number.");
@@ -241,6 +238,7 @@ private static void addToy() {
     String type = getType(serialNumber);
     if ("Error".equals(type)) {
         System.out.println("Invalid serial number. First digit must be between 0 and 9.");
+        addToy();
         return;
     }
 
@@ -365,7 +363,8 @@ private static void removeToy() {
     }
 
     System.out.println("Press Enter to Continue...");
-    scanner.nextLine(); 
+    scanner.nextLine();
+    mainMenu();
     }
 }
 
