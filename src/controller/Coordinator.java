@@ -40,7 +40,7 @@ public class Coordinator {
                 removeToy();
                 break;
             case 4:
-                //recommendToy();
+            	giftSuggestion();
                 break;
             case 5:
                 System.out.println("Thank you for using our app!"); //or something else just as corny
@@ -390,7 +390,65 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     }
     
     private static void giftSuggestion() {
-    	
+    	Scanner scanner = new Scanner(System.in);
+    	int age = -1;
+    	String type = "";
+    	float maxPrice = 0;
+    	String reply;
+    	System.out.println("Our advanced systems will now determine what type of toy you should buy!");
+    	System.out.println("If you are unsure of any answer, leave the answer blank.");
+    	try {
+    		System.out.println("What is the gift recipients age: ");
+    		reply = scanner.nextLine();
+    		if(!(reply == "")) {
+    			age = Integer.parseInt(reply);
+    		}
+    	} catch (Exception e) {
+    		System.out.println("Error, invalid age. Try again!");
+    		giftSuggestion();
+    	}
+    	try {
+    		System.out.println("What is the gift recipients favourite toy type: ");
+    		reply = scanner.nextLine();
+    		if(!(reply == "")) {
+    			type = reply;
+    		}
+    	} catch (Exception e) {
+    		System.out.println("Error, invalid toy Type. Try again!");
+    		giftSuggestion();
+    	}
+    	try {
+    		System.out.println("What is Your maximum price: ");
+    		reply = scanner.nextLine();
+    		if(!(reply == "")) {
+    			maxPrice = Float.parseFloat(reply);
+    		}
+    	} catch (Exception e) {
+    		System.out.println("Error, invalid price. Try again!");
+    		giftSuggestion();
+    	}
+    	 List<Toy> acceptableToys = new ArrayList<>();
+    	 for (Toy toy : toys) {
+    		 if(!(age == -1)) {
+    			if(age > toy.getAgeAppropriate()) {
+    				continue;
+    			}
+    		}
+    		if(!(type == "")) {
+    			if(!(toy.getType() == type)) {
+    				continue;
+    			}
+    		}
+    		if(!(maxPrice == 0)) {
+    			if(Float.parseFloat(toy.getPrice()) > maxPrice) {
+    				continue;
+    			}
+    		}
+    		acceptableToys.add(toy);
+    	}
+    	System.out.println("Here is a list of the acceptable toys we have found:");
+    	view.ToyStoreMenu.drawPrintList(acceptableToys);
+    	System.out.println("\nFeel free to go to our Inventory and Purchase section to make a purchase!");
     }
     
     private static List<Toy> compareToys(Object target, String parameterType) {

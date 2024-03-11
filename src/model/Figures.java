@@ -24,15 +24,13 @@ public class Figures extends Toy {
 
     @Override
     public String toString() {
-        return "Figures{" +
-            "serialNumber='" + getSerialNumber() + '\'' +
-            ", name='" + getName() + '\'' +
-            ", brand='" + getBrand() + '\'' +
-            ", price=" + getPrice() +
-            ", availableCount=" + getAvailableCount() +
-            ", ageAppropriate=" + getAgeAppropriate() +
-            ", classification='" + classification + '\'' +
-        '}';
+        return "Category: " + getType() +
+                ", Serial Number: " + getSerialNumber() +
+                ", Name: " + getName() +
+                ", Brand: " + getBrand() +
+                ", Price: " + getPrice() +
+                ", Available Units: " + getAvailableCount() + 
+                ", Minimum Age: " + getAgeAppropriate();
     }
     
     public String toDatabase() {

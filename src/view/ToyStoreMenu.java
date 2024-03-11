@@ -1,6 +1,10 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import model.Toy;
 
 public class ToyStoreMenu {
     public static void drawMainMenu() {
@@ -22,9 +26,12 @@ public class ToyStoreMenu {
     	System.out.println("(3) Type");
     	System.out.println("(4) Back to Main Menu");
     }
-    
-    public static void drawResults() {
-    	
+
+    public static void drawPrintList(List<Toy> acceptableToys) {
+    	int count = 1;
+    	for (Toy toy : acceptableToys) {
+    		System.out.println(count + ") " + toy.toString());
+    		count++;
+    	}
     }
-    
 }

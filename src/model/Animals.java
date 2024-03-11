@@ -96,16 +96,15 @@ public class Animals extends Toy {
      */
     @Override
     public String toString() {
-        return "Animals{" +
-            "serialNumber='" + getSerialNumber() + '\'' +
-            ", name='" + getName() + '\'' +
-            ", brand='" + getBrand() + '\'' +
-            ", price=" + getPrice() +
-            ", availableCount=" + getAvailableCount() +
-            ", ageAppropriate=" + getAgeAppropriate() +
-            ", material='" + material + '\'' +
-            ", size='" + size + '\'' +
-        '}';
+        return "Category: " + getType() +
+                ", Serial Number: " + getSerialNumber() +
+                ", Name: " + getName() +
+                ", Brand: " + getBrand() +
+                ", Price: " + getPrice() +
+                ", Available Units: " + getAvailableCount() + 
+                ", Minimum Age: " + getAgeAppropriate() +
+            ", Material: " + material +
+            ", Size: " + size;
     }   
         public String toDatabase() {
        	 return getSerialNumber() + ";" +
