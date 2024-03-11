@@ -56,4 +56,14 @@ public class Boardgames extends Toy {
         '}';
     }
     
+    public String toDatabase() {
+   	 return getSerialNumber() + ";" +
+   	            getName() + ";" +
+   	            getBrand() + ";" +
+   	            getPrice() + ";" +
+   	            getAvailableCount() + ";" +
+   	            getAgeAppropriate() + ";" +
+   	            getDesigners();
+   }
+    
 }

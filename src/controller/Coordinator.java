@@ -102,7 +102,7 @@ public class Coordinator {
             File file = new File(FILE_PATH);
             FileWriter writer = new FileWriter(file);
             for (Toy toy : toys) {
-                writer.write(toy + "\n");
+                writer.write(toy.toDatabase() + "\n");
             }
             writer.close();
         } catch (IOException e) {

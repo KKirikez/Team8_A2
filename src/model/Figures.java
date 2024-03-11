@@ -33,4 +33,14 @@ public class Figures extends Toy {
             ", classification='" + classification + '\'' +
         '}';
     }
+    
+    public String toDatabase() {
+   	 return getSerialNumber() + ";" +
+   	            getName() + ";" +
+   	            getBrand() + ";" +
+   	            getPrice() + ";" +
+   	            getAvailableCount() + ";" +
+   	            getAgeAppropriate() + ";" +
+   	            getClassification();
+   }
 }

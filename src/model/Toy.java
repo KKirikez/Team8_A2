@@ -75,4 +75,6 @@ public abstract class Toy {
     public void setType(String type) {
     	this.type = type;
     }
+
+	public abstract String toDatabase();
 }

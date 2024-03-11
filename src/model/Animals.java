@@ -105,5 +105,15 @@ public class Animals extends Toy {
             ", material='" + material + '\'' +
             ", size='" + size + '\'' +
         '}';
+    }   
+        public String toDatabase() {
+       	 return getSerialNumber() + ";" +
+       	            getName() + ";" +
+       	            getBrand() + ";" +
+       	            getPrice() + ";" +
+       	            getAvailableCount() + ";" +
+       	            getAgeAppropriate() + ";" +
+       	            getMaterial() + ";" +
+       	            getSize();
     }
 }
