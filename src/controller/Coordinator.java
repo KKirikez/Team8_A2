@@ -458,8 +458,8 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     				continue;
     			}
     		}
-    		if(!(type == "")) {
-    			if(!(toy.getType() == type)) {
+    		if(!(type.equals(""))) {
+    			if(!(toy.getType().equals(type))) {
     				continue;
     			}
     		}
@@ -473,6 +473,7 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     	System.out.println("Here is a list of the acceptable toys we have found:");
     	view.ToyStoreMenu.drawPrintList(acceptableToys);
     	System.out.println("\nFeel free to go to our Inventory and Purchase section to make a purchase!");
+    	mainMenu();
     }
      /**
      * Compares toys based on a given parameter.
