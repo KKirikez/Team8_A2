@@ -456,7 +456,7 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     	 List<Toy> acceptableToys = new ArrayList<>();
     	 for (Toy toy : toys) {
     		 if(!(age == -1)) {
-    			if(age > toy.getAgeAppropriate()) {
+    			if(age < toy.getAgeAppropriate()) {
     				continue;
     			}
     		}
