@@ -181,7 +181,6 @@ public class Coordinator {
     }
      /**
      * allows the purchase of a toy.
-     * 
      * @param toyToPurchase The toy to be purchased.
      * @param scanner       The scanner object for user input.
      */
