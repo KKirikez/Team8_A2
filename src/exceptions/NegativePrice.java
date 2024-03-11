@@ -11,6 +11,6 @@ public class NegativePrice extends Exception {
      * The error message is printed to the console when the exception is thrown.
      */
     public NegativePrice() {
-        System.out.println("Whoops! A negative price was entered. Please try again.");
+    	  super("Whoops! A negative price was entered. Please try again.");
     }
 }

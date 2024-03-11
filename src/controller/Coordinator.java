@@ -229,8 +229,12 @@ private static void addToy() {
 
     System.out.print("Enter Toy Price: ");
     float price = Float.parseFloat(scanner.nextLine());
-    if (price < 0) {
-        throw new NegativePrice();
+    try {
+    	if (price < 0) {
+        	throw new NegativePrice();
+    	}
+    } catch (NegativePrice e) {
+    	e.printStackTrace();
     }
 
     System.out.print("Enter Available Count: ");
@@ -245,32 +249,36 @@ private static void addToy() {
         case "Figure":
             System.out.print("Enter Classification (Action, Doll, Historic): ");
             String classification = scanner.nextLine();
-            toy = new Figure(serialNumber, name, brand, price, availableCount, ageAppropriate, classification);
+            toy  = new Figures(serialNumber, name, brand, price, availableCount, ageAppropriate, classification);
             break;
         case "Animal":
             System.out.print("Enter Material: ");
             String material = scanner.nextLine();
             System.out.print("Enter Size (Small, Medium, Large): ");
             String size = scanner.nextLine();
-            toy = new Animal(serialNumber, name, brand, price, availableCount, ageAppropriate, material, size);
+            toy = new Animals(serialNumber, name, brand, price, availableCount, ageAppropriate, material, size);
             break;
         case "Puzzle":
             System.out.print("Enter Puzzle Type (Mechanical, Cryptic, Logic, Trivia, Riddle): ");
             String puzzleType = scanner.nextLine();
-            toy = new Puzzle(serialNumber, name, brand, price, availableCount, ageAppropriate, puzzleType);
+            toy = new Puzzles(serialNumber, name, brand, price, availableCount, ageAppropriate, puzzleType);
             break;
         case "Board Game":
            System.out.print("Enter Minimum Number of Players: ");
             int minPlayers = scanner.nextInt();
             System.out.print("Enter Maximum Number of Players: ");
             int maxPlayers = scanner.nextInt();
-            if (minPlayers > maxPlayers) {
-                throw new MinimumOverMax();
+            try {
+            	if (minPlayers > maxPlayers) {
+                	throw new MinimumOverMax();
+            	}
+            } catch (MinimumOverMax e) {
+                e.printStackTrace();
             }
             scanner.nextLine(); 
             System.out.print("Enter Designer(s): ");
             String designers = scanner.nextLine();
-            toy = new BoardGame(serialNumber, name, brand, price, availableCount, ageAppropriate, minPlayers, maxPlayers, designers);
+            toy = new Boardgames(serialNumber, name, brand, price, availableCount, ageAppropriate, minPlayers, maxPlayers, designers);
             break;
         default:
             System.out.println("Invalid toy type.");
@@ -283,24 +291,20 @@ private static void addToy() {
 
 
 private static boolean isAllDigits(String str) {
-    for (char c : str.toCharArray()) {
+	Scanner scanner = new Scanner(System.in);
+	for (char c : str.toCharArray()) {
         if (!Character.isDigit(c)) {
             return false;
         }
     }
-    return true;
-}
-System.out.println("Press Enter to continue...");
-
-   
-    while (!scanner.nextLine().equals("")) {
-        System.out.println("Press Enter to continue...");
-    }
+    System.out.println("Press Enter to continue...");
+    scanner.nextLine(); 
 
     ToyStoreMenu.drawMainMenu();
+    return true;
 }
 private static void removeToy() {
-    Scanner scanner = new Scanner(System.in);
+	Scanner scanner = new Scanner(System.in);
 
     System.out.println("Removing a Toy!");
 
@@ -331,9 +335,7 @@ private static void removeToy() {
 
     System.out.println("Press Enter to Continue...");
     scanner.nextLine(); 
-
-    
-    
+    }
 }
 
 
