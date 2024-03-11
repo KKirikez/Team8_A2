@@ -423,7 +423,6 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     System.out.println("Our advanced systems will now determine what type of toy you should buy!");
     System.out.println("If you are unsure of any answer, leave the answer blank.");
 
-    scanner.close();
     	try {
     		System.out.println("What is the gift recipients age: ");
     		reply = scanner.nextLine();
