@@ -154,7 +154,7 @@ public class Coordinator {
             }
             System.out.println("Select the number of the toy to purchase or 0 to cancel:");
             int toyChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline
+            scanner.nextLine(); 
             if (toyChoice > 0 && toyChoice <= matchingToys.size()) {
                 purchaseToy(matchingToys.get(toyChoice - 1), scanner);
             } else {
@@ -163,7 +163,6 @@ public class Coordinator {
         } else {
             System.out.println("No matching toys found.");
         }
-        // Consider removing scanner.close() from here to avoid closing System.in
     }
     
     private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
