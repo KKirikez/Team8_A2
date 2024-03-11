@@ -152,16 +152,23 @@ public class Coordinator {
             for (int i = 0; i < matchingToys.size(); i++) {
                 System.out.println((i + 1) + ". " + matchingToys.get(i));
             }
-            System.out.println("Select the number of the toy to purchase or 0 to cancel:");
+
+            System.out.println((matchingToys.size() + 1) + ". Return to search menu");
+            
+            System.out.println("Select the number of the toy to purchase, 0 to cancel, or " + (matchingToys.size() + 1) + " to return to search menu:");
             int toyChoice = scanner.nextInt();
             scanner.nextLine(); 
+    
             if (toyChoice > 0 && toyChoice <= matchingToys.size()) {
                 purchaseToy(matchingToys.get(toyChoice - 1), scanner);
+            } else if (toyChoice == matchingToys.size() + 1) {
+                searchToys();
             } else {
                 System.out.println("Purchase cancelled.");
             }
         } else {
             System.out.println("No matching toys found.");
+            searchToys();
         }
     }
     
@@ -363,7 +370,6 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
         }
     } else {
         System.out.println("Toy not found. Please enter a valid input.");
-        // Consider not calling searchToys() directly here to avoid recursive calls and potential stack overflow
     }
 
     System.out.println("Press Enter to continue...");
