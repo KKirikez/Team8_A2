@@ -387,6 +387,7 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     
     private static List<Toy> compareToys(Object target, String parameterType) {
         List<Toy> matchingToys = new ArrayList<>();
+        String targetString = ((String) target).toLowerCase();
         switch (parameterType) {
             case "Serial":
                 for (Toy toy : toys) {
@@ -396,8 +397,9 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
                 }
                 break;
             case "Name":
+                // This part id for partial, case-insensitive matching
                 for (Toy toy : toys) {
-                    if (toy.getName().equalsIgnoreCase((String) target)) {
+                    if (toy.getName().toLowerCase().contains(targetString)) {
                         matchingToys.add(toy);
                     }
                 }
@@ -412,6 +414,7 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
         }
         return matchingToys;
     }
+    
     
     
     
