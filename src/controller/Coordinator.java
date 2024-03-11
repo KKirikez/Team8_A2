@@ -294,6 +294,11 @@ private static void addToy() {
 
     toys.add(toy);
     System.out.println("New toy added successfully!");
+
+	System.out.println("Press Enter to continue...");
+    scanner.nextLine(); 
+
+	ToyStoreMenu.drawMainMenu();
 }
 
 
@@ -303,11 +308,7 @@ private static boolean isAllDigits(String str) {
         if (!Character.isDigit(c)) {
             return false;
         }
-    }
-    System.out.println("Press Enter to continue...");
-    scanner.nextLine(); 
-
-    ToyStoreMenu.drawMainMenu();
+	}
     return true;
 }
 private static void removeToy() {
