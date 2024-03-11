@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.Scanner;
+
+import exceptions.MinimumOverMax;
+import exceptions.NegativePrice;
 import view.ToyStoreMenu;
 import java.io.File;
 import java.io.FileWriter;
