@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.Scanner;
+
+import exceptions.MinimumOverMax;
+import exceptions.NegativePrice;
 import view.ToyStoreMenu;
 import java.io.File;
 import java.io.FileWriter;
@@ -115,49 +118,107 @@ public class Coordinator {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Consume the newline
+        
+        String target = null;
+        List<Toy> matchingToys = new ArrayList<>();
         switch (choice) {
             case 1:
                 System.out.println("Enter the serial number: ");
-                String serial = scanner.nextLine();
-                compareToys(serial, "Serial", "Serial");
-                purchaseToy(serial, "Serial", scanner);
+                target = scanner.nextLine();
+                matchingToys = compareToys(target, "Serial");
                 break;
             case 2:
                 System.out.println("Enter the name of the toy: ");
-                String name = scanner.nextLine();
-                compareToys(name.toLowerCase(), "Name", "Name");
-                purchaseToy(name.toLowerCase(), "Name", scanner);
+                target = scanner.nextLine().toLowerCase();
+                matchingToys = compareToys(target, "Name");
                 break;
             case 3:
                 System.out.println("Enter the type of toy: ");
-                String type = scanner.nextLine();
-                compareToys(type, "Type", "Type");
-                purchaseToy(type, "Type", scanner); 
+                target = scanner.nextLine();
+                matchingToys = compareToys(target, "Type");
                 break;
             case 4:
                 mainMenu();
-                break;
+                return;
             default:
                 System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
                 searchToys();
+                return; 
+        }
+    
+        if (!matchingToys.isEmpty()) {
+            System.out.println("Matching toys:");
+            for (int i = 0; i < matchingToys.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingToys.get(i));
             }
-        scanner.close();
+            System.out.println("Select the number of the toy to purchase or 0 to cancel:");
+            int toyChoice = scanner.nextInt();
+            scanner.nextLine(); 
+            if (toyChoice > 0 && toyChoice <= matchingToys.size()) {
+                purchaseToy(matchingToys.get(toyChoice - 1), scanner);
+            } else {
+                System.out.println("Purchase cancelled.");
+            }
+        } else {
+            System.out.println("No matching toys found.");
+        }
     }
+    
+    private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
+        // Toy object is directly passed to this method, so no need to search it again
+        if (toyToPurchase != null) {
+            System.out.println("You have selected: " + toyToPurchase.toString());
+            System.out.println("Do you want to purchase this toy? (yes/no): ");
+            String confirmation = scanner.nextLine().trim().toLowerCase();
+    
+            if ("yes".equals(confirmation)) {
+                System.out.println("The Transaction Successfully Terminated!");
+                toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);
+                // Remove the toy from the list if it's no longer available
+                if (toyToPurchase.getAvailableCount() <= 0) {
+                    toys.remove(toyToPurchase);
+                }
+                System.out.println("Press Enter to continue...");
+                scanner.nextLine(); 
+                System.out.println("Transaction cancelled. You can continue browsing our toys.");
+            }
+        } else {
+            System.out.println("Error: Toy not found.");
+        }
+    }
+    
 
 private static void addToy() {
     Scanner scanner = new Scanner(System.in);
-
     System.out.println("Adding a new Toy!");
 
     System.out.print("Enter Serial Number: ");
     String serialNumber = scanner.nextLine();
 
+   
+    if (serialNumber.length() != 10) {
+        System.out.println("Invalid serial number. It must be 10 digits long.");
+        return;
+    }
+    if (!isAllDigits(serialNumber)) {
+        System.out.println("Invalid serial number. It must contain only numbers.");
+        return;
+    }
+
     
-    while (!isSerialNumberUnique(serialNumber)) {
-        System.out.println("Serial number already exists. Please enter a unique serial number.");
-        System.out.print("Enter Serial Number: ");
-        serialNumber = scanner.nextLine();
+    for (Toy toy : toys) {
+        if (toy.getSerialNumber().equals(serialNumber)) {
+            System.out.println("Serial number already exists. Please enter a unique serial number.");
+            return;
+        }
+    }
+
+    
+    String type = getType(serialNumber);
+    if ("Error".equals(type)) {
+        System.out.println("Invalid serial number. First digit must be between 0 and 9.");
+        return;
     }
 
     System.out.print("Enter Toy Name: ");
@@ -166,42 +227,78 @@ private static void addToy() {
     System.out.print("Enter Toy Brand: ");
     String brand = scanner.nextLine();
 
-    float price;
     System.out.print("Enter Toy Price: ");
-    price = Float.parseFloat(scanner.nextLine());
+    float price = Float.parseFloat(scanner.nextLine());
     if (price < 0) {
-        throw new NegativePrice(); 
+        throw new NegativePrice();
     }
 
-    System.out.print("Enter Available Counts: ");
+    System.out.print("Enter Available Count: ");
     int availableCount = scanner.nextInt();
 
     System.out.print("Enter Appropriate Age: ");
     int ageAppropriate = scanner.nextInt();
+    scanner.nextLine();  
 
-       int minPlayers, maxPlayers;
-    System.out.print("Enter Minimum Number of Players: ");
-    minPlayers = scanner.nextInt();
-    System.out.print("Enter Maximum Number of Players: ");
-    maxPlayers = scanner.nextInt();
-    if (minPlayers > maxPlayers) {
-        throw new MinimumOverMax();
+    Toy toy = null;
+    switch (type) {
+        case "Figure":
+            System.out.print("Enter Classification (Action, Doll, Historic): ");
+            String classification = scanner.nextLine();
+            toy = new Figure(serialNumber, name, brand, price, availableCount, ageAppropriate, classification);
+            break;
+        case "Animal":
+            System.out.print("Enter Material: ");
+            String material = scanner.nextLine();
+            System.out.print("Enter Size (Small, Medium, Large): ");
+            String size = scanner.nextLine();
+            toy = new Animal(serialNumber, name, brand, price, availableCount, ageAppropriate, material, size);
+            break;
+        case "Puzzle":
+            System.out.print("Enter Puzzle Type (Mechanical, Cryptic, Logic, Trivia, Riddle): ");
+            String puzzleType = scanner.nextLine();
+            toy = new Puzzle(serialNumber, name, brand, price, availableCount, ageAppropriate, puzzleType);
+            break;
+        case "Board Game":
+           System.out.print("Enter Minimum Number of Players: ");
+            int minPlayers = scanner.nextInt();
+            System.out.print("Enter Maximum Number of Players: ");
+            int maxPlayers = scanner.nextInt();
+            if (minPlayers > maxPlayers) {
+                throw new MinimumOverMax();
+            }
+            scanner.nextLine(); 
+            System.out.print("Enter Designer(s): ");
+            String designers = scanner.nextLine();
+            toy = new BoardGame(serialNumber, name, brand, price, availableCount, ageAppropriate, minPlayers, maxPlayers, designers);
+            break;
+        default:
+            System.out.println("Invalid toy type.");
+            return;
     }
-    scanner.nextLine();
 
-    System.out.print("Enter Designer Names (Use, to separate the names if there is more than one name): ");
-    String designers = scanner.nextLine();
-
-    toys.add(new BoardGame(serialNumber, name, brand, price, availableCount, ageAppropriate, minPlayers, maxPlayers, designers));
-
-    System.out.println("New Toy Added!");
-    System.out.println("Press Enter to Continue...");
-    scanner.nextLine(); 
-
-    
-    drawSearchMenu();
+    toys.add(toy);
+    System.out.println("New toy added successfully!");
 }
 
+
+private static boolean isAllDigits(String str) {
+    for (char c : str.toCharArray()) {
+        if (!Character.isDigit(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+System.out.println("Press Enter to continue...");
+
+   
+    while (!scanner.nextLine().equals("")) {
+        System.out.println("Press Enter to continue...");
+    }
+
+    ToyStoreMenu.drawMainMenu();
+}
 private static void removeToy() {
     Scanner scanner = new Scanner(System.in);
 
@@ -236,33 +333,40 @@ private static void removeToy() {
     scanner.nextLine(); 
 
     
-    drawSearchMenu();
+    
 }
 
 
 
-    private static void purchaseToy(String target, String parameterType, Scanner scanner) {
-        Toy toyToPurchase = null;
-        for (Toy toy : toys) {
-            if (compare(toy, target, parameterType)) {
-                toyToPurchase = toy;
-                break;
-            }
+private static void purchaseToy(String target, String parameterType, Scanner scanner) {
+    Toy toyToPurchase = null;
+    for (Toy toy : toys) {
+        if (compare(toy, target, parameterType)) {
+            toyToPurchase = toy;
+            break;
         }
+    }
 
-        if (toyToPurchase != null) {
-            System.out.println("The Transaction Successfully Been Completed!");
-            System.out.println(toyToPurchase.toString());
+    if (toyToPurchase != null) {
+        System.out.println("Toy found: " + toyToPurchase.toString());
+        System.out.println("Do you want to purchase this toy? (yes/no): ");
+
+        String response = scanner.nextLine().trim().toLowerCase();
+        if (response.equals("yes")) {
+            System.out.println("The Transaction Successfully Terminated!");
             toys.remove(toyToPurchase);
             toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);
         } else {
-            System.out.println("Toy not found. Please enter a valid input.");
-            searchToys(); // Reprompting the user, is this necessary?
+            System.out.println("Transaction cancelled. You can continue browsing our toys.");
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        searchToys();
+    } else {
+        System.out.println("Toy not found. Please enter a valid input.");
+        // Consider not calling searchToys() directly here to avoid recursive calls and potential stack overflow
     }
+
+    System.out.println("Press Enter to continue...");
+    scanner.nextLine();
+}
 
     private static boolean compare(Toy toy, String target, String parameterType) {
         switch (parameterType) {
@@ -281,37 +385,37 @@ private static void removeToy() {
     	
     }
     
-    private static Boolean compareToys(Object target, String parameterTarget, String parameterType) {
+    private static List<Toy> compareToys(Object target, String parameterType) {
+        List<Toy> matchingToys = new ArrayList<>();
+        String targetString = ((String) target).toLowerCase();
         switch (parameterType) {
             case "Serial":
-                System.out.println("Here are the search results:");
                 for (Toy toy : toys) {
                     if (toy.getSerialNumber().equals(target)) {
-                        System.out.println(toy.toString());
+                        matchingToys.add(toy);
                     }
                 }
                 break;
             case "Name":
-                System.out.println("Here are the search results:");
+                // This part id for partial, case-insensitive matching
                 for (Toy toy : toys) {
-                    if (toy.getName().equalsIgnoreCase((String) target)) {
-                        System.out.println(toy.toString());
+                    if (toy.getName().toLowerCase().contains(targetString)) {
+                        matchingToys.add(toy);
                     }
                 }
                 break;
             case "Type":
-                System.out.println("Here are the search results:");
                 for (Toy toy : toys) {
                     if (toy.getType().equalsIgnoreCase((String) target)) {
-                        System.out.println(toy.toString());
+                        matchingToys.add(toy);
                     }
                 }
                 break;
-            default:
-                break;
         }
-        return true;
+        return matchingToys;
     }
+    
+    
     
     
     private static String getType(String input) {
