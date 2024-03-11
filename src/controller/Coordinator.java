@@ -118,35 +118,77 @@ public class Coordinator {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Consume the newline
+        
+        String target = null;
+        List<Toy> matchingToys = new ArrayList<>();
         switch (choice) {
             case 1:
                 System.out.println("Enter the serial number: ");
-                String serial = scanner.nextLine();
-                compareToys(serial, "Serial", "Serial");
-                purchaseToy(serial, "Serial", scanner);
+                target = scanner.nextLine();
+                matchingToys = compareToys(target, "Serial");
                 break;
             case 2:
                 System.out.println("Enter the name of the toy: ");
-                String name = scanner.nextLine();
-                compareToys(name.toLowerCase(), "Name", "Name");
-                purchaseToy(name.toLowerCase(), "Name", scanner);
+                target = scanner.nextLine().toLowerCase();
+                matchingToys = compareToys(target, "Name");
                 break;
             case 3:
                 System.out.println("Enter the type of toy: ");
-                String type = scanner.nextLine();
-                compareToys(type, "Type", "Type");
-                purchaseToy(type, "Type", scanner); 
+                target = scanner.nextLine();
+                matchingToys = compareToys(target, "Type");
                 break;
             case 4:
                 mainMenu();
-                break;
+                return;
             default:
                 System.out.println("Invalid choice. Please enter a number between 1 and 4.\n");
                 searchToys();
+                return; 
+        }
+    
+        if (!matchingToys.isEmpty()) {
+            System.out.println("Matching toys:");
+            for (int i = 0; i < matchingToys.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingToys.get(i));
             }
-        scanner.close();
+            System.out.println("Select the number of the toy to purchase or 0 to cancel:");
+            int toyChoice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline
+            if (toyChoice > 0 && toyChoice <= matchingToys.size()) {
+                purchaseToy(matchingToys.get(toyChoice - 1), scanner);
+            } else {
+                System.out.println("Purchase cancelled.");
+            }
+        } else {
+            System.out.println("No matching toys found.");
+        }
+        // Consider removing scanner.close() from here to avoid closing System.in
     }
+    
+    private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
+        // Toy object is directly passed to this method, so no need to search it again
+        if (toyToPurchase != null) {
+            System.out.println("You have selected: " + toyToPurchase.toString());
+            System.out.println("Do you want to purchase this toy? (yes/no): ");
+            String confirmation = scanner.nextLine().trim().toLowerCase();
+    
+            if ("yes".equals(confirmation)) {
+                System.out.println("The Transaction Successfully Terminated!");
+                toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);
+                // Remove the toy from the list if it's no longer available
+                if (toyToPurchase.getAvailableCount() <= 0) {
+                    toys.remove(toyToPurchase);
+                }
+                System.out.println("Press Enter to continue...");
+                scanner.nextLine(); 
+                System.out.println("Transaction cancelled. You can continue browsing our toys.");
+            }
+        } else {
+            System.out.println("Error: Toy not found.");
+        }
+    }
+    
 
 private static void addToy() {
     Scanner scanner = new Scanner(System.in);
@@ -244,28 +286,35 @@ private static void removeToy() {
 
 
 
-    private static void purchaseToy(String target, String parameterType, Scanner scanner) {
-        Toy toyToPurchase = null;
-        for (Toy toy : toys) {
-            if (compare(toy, target, parameterType)) {
-                toyToPurchase = toy;
-                break;
-            }
+private static void purchaseToy(String target, String parameterType, Scanner scanner) {
+    Toy toyToPurchase = null;
+    for (Toy toy : toys) {
+        if (compare(toy, target, parameterType)) {
+            toyToPurchase = toy;
+            break;
         }
+    }
 
-        if (toyToPurchase != null) {
+    if (toyToPurchase != null) {
+        System.out.println("Toy found: " + toyToPurchase.toString());
+        System.out.println("Do you want to purchase this toy? (yes/no): ");
+
+        String response = scanner.nextLine().trim().toLowerCase();
+        if (response.equals("yes")) {
             System.out.println("The Transaction Successfully Terminated!");
-            System.out.println(toyToPurchase.toString());
             toys.remove(toyToPurchase);
             toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);
         } else {
-            System.out.println("Toy not found. Please enter a valid input.");
-            searchToys(); // Reprompting the user, is this necessary?
+            System.out.println("Transaction cancelled. You can continue browsing our toys.");
         }
-        System.out.println("Press Enter to continue...");
-        scanner.nextLine();
-        searchToys();
+    } else {
+        System.out.println("Toy not found. Please enter a valid input.");
+        // Consider not calling searchToys() directly here to avoid recursive calls and potential stack overflow
     }
+
+    System.out.println("Press Enter to continue...");
+    scanner.nextLine();
+}
 
     private static boolean compare(Toy toy, String target, String parameterType) {
         switch (parameterType) {
@@ -284,37 +333,34 @@ private static void removeToy() {
     	
     }
     
-    private static Boolean compareToys(Object target, String parameterTarget, String parameterType) {
+    private static List<Toy> compareToys(Object target, String parameterType) {
+        List<Toy> matchingToys = new ArrayList<>();
         switch (parameterType) {
             case "Serial":
-                System.out.println("Here are the search results:");
                 for (Toy toy : toys) {
                     if (toy.getSerialNumber().equals(target)) {
-                        System.out.println(toy.toString());
+                        matchingToys.add(toy);
                     }
                 }
                 break;
             case "Name":
-                System.out.println("Here are the search results:");
                 for (Toy toy : toys) {
                     if (toy.getName().equalsIgnoreCase((String) target)) {
-                        System.out.println(toy.toString());
+                        matchingToys.add(toy);
                     }
                 }
                 break;
             case "Type":
-                System.out.println("Here are the search results:");
                 for (Toy toy : toys) {
                     if (toy.getType().equalsIgnoreCase((String) target)) {
-                        System.out.println(toy.toString());
+                        matchingToys.add(toy);
                     }
                 }
                 break;
-            default:
-                break;
         }
-        return true;
+        return matchingToys;
     }
+    
     
     
     private static String getType(String input) {
