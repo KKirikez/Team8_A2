@@ -203,6 +203,7 @@ private static void addToy() {
     
     drawSearchMenu();
 }
+
 private static void removeToy() {
     Scanner scanner = new Scanner(System.in);
 
