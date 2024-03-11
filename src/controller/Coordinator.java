@@ -26,55 +26,6 @@ import model.*;
 public class Coordinator {
     private static final String FILE_PATH = "res/toys.txt";
     private static List<Toy> toys = new ArrayList<>();
-
-    /**
-     * Displays the main menu and handles user input to navigate different functionalities of the toy store application.
-     */
-    public static void mainMenu() {
-        // Code implementation
-    }
-
-    /**
-     * Loads toys from a file into the application's memory.
-     */
-    private static void loadToysFromFile() {
-        // Code implementation
-    }
-
-    /**
-     * Saves the current list of toys to a file.
-     */
-    private static void saveToysToFile() {
-        // Code implementation
-    }
-
-    /**
-     * Allows the user to search for toys based on various criteria.
-     */
-    private static void searchToys() {
-        // Code implementation
-    }
-
-    /**
-     * Allows the purchase of a toy.
-     * 
-     * @param toyToPurchase The toy to be purchased.
-     * @param scanner       The scanner object for user input.
-     */
-    private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
-        // Code implementation
-    }
-
-    /**
-     * Allows the user to add a new toy to the inventory.
-     */
-    private static void addToy() {
-        // Code implementation
-    }
-}
-public class Coordinator {
-    private static final String FILE_PATH = "res/toys.txt";
-    private static List<Toy> toys = new ArrayList<>();
 /**
      * Displays the main menu and handles user input to navigate different functionalities of the toy store application.
      */
