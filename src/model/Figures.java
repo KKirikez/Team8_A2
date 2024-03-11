@@ -7,6 +7,7 @@ public class Figures extends Toy {
         super(serialNumber, name, brand, price, availableCount, ageAppropriate);
         this.classification = classification;
         this.setType("Figure");
+        this.setAgeAppropriate(ageAppropriate);
     }
 
     public void setClassification(String classification) {

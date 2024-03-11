@@ -77,14 +77,14 @@ public class Coordinator {
                     case "Puzzle":
                         //5239019250;Nob Yoshigahara Puzzle Design Competition;Game Zombie;67.20;5;3;M
                         //String serialNumber, String name, String brand, float price, int availableCount, String puzzleType
-                        toy = new Puzzles(toyArray[0], toyArray[1], toyArray[2], Float.parseFloat(toyArray[3]), Integer.parseInt(toyArray[4]),
-                                toyArray[5]);
+                        toy = new Puzzles(toyArray[0], toyArray[1], toyArray[2], Float.parseFloat(toyArray[3]), Integer.parseInt(toyArray[4]), Integer.parseInt(toyArray[5]),
+                                toyArray[6]);
                         break;
 
                     case "Board Game":
-                        //7734720369;Doom: The Boardgame;Gamefluent;174.24;10;7;2-5;Miller Knights
+                        //7734720369 ; Doom: The Boardgame ; Gamefluent ; 174.24 ; 10 ; 7 ; 2-5 ; Miller Knights
                         //String serialNumber, String name, String brand, float price, int availableCount, int minPlayers, int maxPlayers, String designers
-                        toy = new Boardgames(toyArray[0], toyArray[1], toyArray[2], Float.parseFloat(toyArray[3]), Integer.parseInt(toyArray[4]),
+                        toy = new Boardgames(toyArray[0], toyArray[1], toyArray[2], Float.parseFloat(toyArray[3]), Integer.parseInt(toyArray[4]), Integer.parseInt(toyArray[5]),
                                 Integer.parseInt(toyArray[6].substring(0, 1)), Integer.parseInt(toyArray[6].substring(2, 3)), toyArray[7]);
                         break;
                 }
@@ -251,7 +251,7 @@ private static void removeToy() {
         }
 
         if (toyToPurchase != null) {
-            System.out.println("The Transaction Successfully Terminated!");
+            System.out.println("The Transaction Successfully Been Completed!");
             System.out.println(toyToPurchase.toString());
             toys.remove(toyToPurchase);
             toyToPurchase.setAvailableCount(toyToPurchase.getAvailableCount() - 1);

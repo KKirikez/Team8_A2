@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DecimalFormat;
+
 public abstract class Toy {
 
     private String serialNumber;
@@ -44,10 +46,10 @@ public abstract class Toy {
         this.brand = brand;
     }
 
-    public float getPrice() {
-        return price;
+    public String getPrice() {
+    	DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(price);
     }
-
     public void setPrice(float price) {
         this.price = price;
     }

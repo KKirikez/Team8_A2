@@ -3,10 +3,11 @@ package model;
 public class Puzzles extends Toy {
     private String puzzleType;
 
-    public Puzzles(String serialNumber, String name, String brand, float price, int availableCount, String puzzleType) {
+    public Puzzles(String serialNumber, String name, String brand, float price, int availableCount, int ageAppropriate, String puzzleType) {
         super(serialNumber, name, brand, price, availableCount, availableCount);
         setPuzzleType(puzzleType);
         this.setType("Puzzle");
+        this.setAgeAppropriate(ageAppropriate);
     }
 
     public String getPuzzleType() {
@@ -15,16 +16,25 @@ public class Puzzles extends Toy {
 
     public void setPuzzleType(String puzzleType) {
         switch (puzzleType) {
-            case "Mechanical":
-            case "Cryptic":
-            case "Logic":
-            case "Trivia":
-            case "Riddle":
-                try {
-                    this.puzzleType = puzzleType;
-                } catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("Invalid puzzle type");
-                }
+            case "M":
+            	this.puzzleType = "Mechanical";
+            	break;
+            case "C":
+            	this.puzzleType = "Cryptic";
+            	break;
+            case "L":
+            	this.puzzleType = "Logic";
+            	break;
+            case "T":
+            	this.puzzleType = "Trivia";
+            	break;
+            case "R":
+            	this.puzzleType = "Riddle";
+            	break;
+            default:
+            	System.out.println("Error in Puzzle");
+            	this.puzzleType = null;
+            	break;
         }
     }
 
@@ -48,7 +58,7 @@ public class Puzzles extends Toy {
     	            getPrice() + ";" +
     	            getAvailableCount() + ";" +
     	            getAgeAppropriate() + ";" +
-    	            getPuzzleType();
+    	            getPuzzleType().charAt(0);
     }
 
     public boolean isSerialNumberValid(String serialNumber) {

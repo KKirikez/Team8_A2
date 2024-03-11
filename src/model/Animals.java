@@ -25,6 +25,7 @@ public class Animals extends Toy {
         this.material = material;
         this.size = size;
         this.setType("Animal");
+        this.setAgeAppropriate(ageAppropriate);
     }
 
     /**

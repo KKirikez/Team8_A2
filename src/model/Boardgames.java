@@ -5,12 +5,13 @@ public class Boardgames extends Toy {
     private int maxPlayers;
     private String designers;
 
-    public Boardgames(String serialNumber, String name, String brand, float price, int availableCount, int minPlayers, int maxPlayers, String designers) {
+    public Boardgames(String serialNumber, String name, String brand, float price, int availableCount, int ageAppropriate, int minPlayers, int maxPlayers, String designers) {
         super(serialNumber, name, brand, price, availableCount, maxPlayers);
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.designers = designers;
         this.setType("Board Game");
+        this.setAgeAppropriate(ageAppropriate);
     }
 
 
@@ -63,6 +64,7 @@ public class Boardgames extends Toy {
    	            getPrice() + ";" +
    	            getAvailableCount() + ";" +
    	            getAgeAppropriate() + ";" +
+   	            getMinPlayers() + "-" + getMaxPlayers() + ";" +
    	            getDesigners();
    }
     
