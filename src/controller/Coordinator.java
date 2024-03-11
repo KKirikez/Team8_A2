@@ -104,7 +104,7 @@ public class Coordinator {
      /**
      * Saves the current list of toys to a file.
      */
-    private static void saveToysToFile() {
+    public static void saveToysToFile() {
         try {
             File file = new File(FILE_PATH);
             FileWriter writer = new FileWriter(file);
