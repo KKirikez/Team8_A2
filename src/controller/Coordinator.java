@@ -21,7 +21,9 @@ import model.*;
 public class Coordinator {
     private static final String FILE_PATH = "res/toys.txt";
     private static List<Toy> toys = new ArrayList<>();
-
+/**
+     * Displays the main menu and handles user input to navigate different functionalities of the toy store application.
+     */
     public static void mainMenu() {
         loadToysFromFile();
         ToyStoreMenu.drawMainMenu();
@@ -52,7 +54,9 @@ public class Coordinator {
         }
         scanner.close();
     }
-
+/**
+     * Loads toys from a file into the application's memory.
+     */
     private static void loadToysFromFile() {
         try {
             File file = new File(FILE_PATH);
@@ -99,7 +103,9 @@ public class Coordinator {
             System.out.println("Failed to load toys from file: " + e.getMessage());
         }
     }
-    
+     /**
+     * Saves the current list of toys to a file.
+     */
     private static void saveToysToFile() {
         try {
             File file = new File(FILE_PATH);
@@ -112,7 +118,9 @@ public class Coordinator {
             System.out.println("Failed to save toys to file: " + e.getMessage());
         }
     }
-    
+    /**
+     * Allows the user to search for toys based on various criteria.
+     */
     private static void searchToys() {
         ToyStoreMenu.drawSearchMenu();
         Scanner scanner = new Scanner(System.in);
@@ -171,7 +179,12 @@ public class Coordinator {
             searchToys();
         }
     }
-    
+     /**
+     * allows the purchase of a toy.
+     * 
+     * @param toyToPurchase The toy to be purchased.
+     * @param scanner       The scanner object for user input.
+     */
     private static void purchaseToy(Toy toyToPurchase, Scanner scanner) {
         // Toy object is directly passed to this method, so no need to search it again
         if (toyToPurchase != null) {
@@ -195,7 +208,9 @@ public class Coordinator {
         }
     }
     
-
+ /**
+     * Allows the user to add a new toy to the inventory.
+     */
 private static void addToy() {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Adding a new Toy!");
@@ -301,7 +316,12 @@ private static void addToy() {
 	ToyStoreMenu.drawMainMenu();
 }
 
-
+/**
+     * Checks if a string contains only digits.
+     * 
+     * @param str The string to be checked.
+     * @return true if the string contains only digits, false otherwise.
+     */
 private static boolean isAllDigits(String str) {
 	Scanner scanner = new Scanner(System.in);
 	for (char c : str.toCharArray()) {
@@ -312,7 +332,9 @@ private static boolean isAllDigits(String str) {
     return true;
 }
 
-	
+	/**
+     * Allows the user to remove a toy from the inventory.
+     */
 private static void removeToy() {
 	Scanner scanner = new Scanner(System.in);
 
@@ -390,11 +412,19 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
                 return false;
         }
     }
-    
+    /**
+     * Suggests toys as a gift based on user input criteria.
+     */
     private static void giftSuggestion() {
     	
     }
-    
+     /**
+     * Compares toys based on a given parameter.
+     * 
+     * @param target        The target value to compare against.
+     * @param parameterType The type of parameter to compare (e.g., "Serial", "Name", "Type").
+     * @return A list of matching toys.
+     */
     private static List<Toy> compareToys(Object target, String parameterType) {
         List<Toy> matchingToys = new ArrayList<>();
         String targetString = ((String) target).toLowerCase();
@@ -426,7 +456,12 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     }
     
     
-    
+    /**
+     * Determines the type of toy based on the first digit of its serial number.
+     * 
+     * @param input The serial number of the toy.
+     * @return The type of toy (e.g., "Figure", "Animal", "Puzzle", "Board Game").
+     */
     
     private static String getType(String input) {
     	char firstChar = input.charAt(0);
