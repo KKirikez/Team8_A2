@@ -311,6 +311,8 @@ private static boolean isAllDigits(String str) {
 	}
     return true;
 }
+
+	
 private static void removeToy() {
 	Scanner scanner = new Scanner(System.in);
 
@@ -345,7 +347,6 @@ private static void removeToy() {
     scanner.nextLine(); 
     }
 }
-
 
 
 private static void purchaseToy(String target, String parameterType, Scanner scanner) {
