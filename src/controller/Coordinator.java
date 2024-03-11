@@ -418,7 +418,6 @@ private static void purchaseToy(String target, String parameterType, Scanner sca
     }
      /**
      * Compares toys based on a given parameter.
-     * 
      * @param target        The target value to compare against.
      * @param parameterType The type of parameter to compare (e.g., "Serial", "Name", "Type").
      * @return A list of matching toys.
